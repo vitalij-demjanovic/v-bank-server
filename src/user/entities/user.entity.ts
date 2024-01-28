@@ -1,7 +1,17 @@
-import { Entity, Column } from 'typeorm';
+import { Entity, Column, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Card } from '../../card/entities/card.entity';
 
 @Entity()
 export class User {
+	@PrimaryGeneratedColumn()
+	id: number;
+
+	@Column({ unique: true })
+	email: string;
+
+	@Column()
+	passwordHash: string;
+
 	@Column({ nullable: true })
 	firstName: string;
 
@@ -16,4 +26,7 @@ export class User {
 
 	@Column({ nullable: true })
 	role: string;
+
+	@OneToMany(() => Card, (card) => card.cardHolder)
+	cards: Card[];
 }

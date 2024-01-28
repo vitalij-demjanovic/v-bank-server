@@ -1,8 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
-import { User } from '../../user/entities/user.entity';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
-export class AuthUser extends User {
+export class AuthUser {
 	@PrimaryGeneratedColumn()
 	id: number;
 

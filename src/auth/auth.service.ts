@@ -1,17 +1,17 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { AuthUser } from './entities/auth.entity';
 import { Repository } from 'typeorm';
 import { compare, genSalt, hash } from 'bcryptjs';
 import { AuthDto } from './dto/auth.dto';
 import { JwtService } from '@nestjs/jwt';
 import { USER_NOT_FOUND_ERROR, WRONG_PASSWORD_ERROR } from './auth.constans';
+import { User } from '../user/entities/user.entity';
 
 @Injectable()
 export class AuthService {
 	constructor(
-		@InjectRepository(AuthUser)
-		private readonly authorizationRepository: Repository<AuthUser>,
+		@InjectRepository(User)
+		private readonly authorizationRepository: Repository<User>,
 		private readonly jwtService: JwtService,
 	) {}
 
