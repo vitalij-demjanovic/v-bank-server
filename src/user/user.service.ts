@@ -8,11 +8,11 @@ import { CreateUserDto } from './dto/CreateUser.dto';
 export class UserService {
 	constructor(
 		@InjectRepository(User)
-		private readonly userService: Repository<User>,
+		private readonly userRepository: Repository<User>,
 	) {}
 
 	async updateUser(email: number, dto: CreateUserDto) {
-		await this.userService
+		await this.userRepository
 			.createQueryBuilder()
 			.update(User)
 			.set(dto)
@@ -20,5 +20,18 @@ export class UserService {
 			.execute();
 
 		return { message: 'Update profile completed successfully.' };
+	}
+
+	async getUserCards(email: string) {
+		const userCards = await this.userRepository.findOne({
+			where: {
+				email,
+			},
+			relations: {
+				cards: true,
+			},
+		});
+
+		return userCards.cards;
 	}
 }

@@ -9,7 +9,7 @@ import { AuthService } from '../auth/auth.service';
 export class CardService {
 	constructor(
 		@InjectRepository(Card)
-		private readonly cardService: Repository<Card>,
+		private readonly cardRepository: Repository<Card>,
 		private readonly authService: AuthService,
 	) {}
 	async createNewCard(email: string, dto: CreateCardDto) {
@@ -17,7 +17,7 @@ export class CardService {
 		if (!user) {
 			throw Error('This user not exist');
 		}
-		return await this.cardService.save({
+		return await this.cardRepository.save({
 			...dto,
 			cardHolder: user,
 		});
